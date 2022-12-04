@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var StockSchema = new Schema({
+var ProductsSchema = new Schema({
     _id: { type: Number },
     codigo: { type: String},
     color: { type: String},
@@ -12,4 +12,4 @@ var StockSchema = new Schema({
     fecha: {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Stock', StockSchema);
+module.exports = mongoose.model('Products', ProductsSchema);
