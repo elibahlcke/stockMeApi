@@ -1,0 +1,12 @@
+.sm-header-container {
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    top: 50;
+    left: 0;
+    background-color: #cae3f1;
+};
+
+img {
+    height: 90px
+}

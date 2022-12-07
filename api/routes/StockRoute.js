@@ -9,4 +9,7 @@ module.exports = function (app) {
         .get(product.findProductByCode)
         .put(product.updateProduct)
         .delete(product.deleteProduct);
+    
+    app.route('/login')
+        .post(product.loginUser)
 };
