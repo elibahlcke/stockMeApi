@@ -51,7 +51,7 @@ const Login = ({getToken}) => {
     
 	return (
         <>
-		<Paper elevation={1} className="sm-login">
+		<Paper elevation={1} className="sm-login sm-paper">
 			<Grid container direction="column" justifyContent="center">
 				<Typography>Inicie Sesion</Typography>
 				<Grid container justifyContent="center" alignItems="center">

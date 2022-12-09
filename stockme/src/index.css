@@ -18,6 +18,12 @@ code {
   margin: 0 auto; 
   width: 50%;
   text-align: center;
+  background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(4.7px) !important;
+    -webkit-backdrop-filter: blur(4.7px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
 }
 
 

@@ -2,9 +2,8 @@
     height: 100px;
     width: 100%;
     position: absolute;
-    top: 50;
+    top: 0;
     left: 0;
-    background-color: #cae3f1;
 };
 
 img {

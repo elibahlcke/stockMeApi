@@ -14,26 +14,27 @@ import Menu from "./components/contentLayout/Menu";
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: "#86c7ed",
-			light: "#9ed2f0"
+			main: "#1836b2",
+			light: "#68708e"
+			
 		},
 		secondary: {
-			main: "#a066cb",
-			light: "#b384d5"
+			main: "#7E7E7E",
+			light: "#C1C1C1"
 		}
 	},
 	components: {
 		// Name of the component
 		MuiTextField: {
 			styleOverrides: {
-				root: { color: "#9ed2f0" }
+				root: { color: "#1836b2" }
 			}
 		},
 		MuiTab: {
 			styleOverrides: {
 				root: {
 					"&.Mui-selected": {
-						backgroundColor: "#a066cb",
+						backgroundColor: "#1836b2",
 						color: "#fff",
 						fontWeight: "bold"
 					}	

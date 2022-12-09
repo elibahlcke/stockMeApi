@@ -1,21 +1,32 @@
-var express = require('express'),
-   cors = require('cors'),
- app = express(),
- port = process.env.PORT || 8000,
- mongoose = require('mongoose'),
- Products = require('./api/models/StockModel'),
- bodyParser = require('body-parser');
+var express = require("express"),
+	cors = require("cors"),
+	app = express(),
+	port = process.env.PORT || 8000,
+	mongoose = require("mongoose"),
+	bodyParser = require("body-parser");
 
- mongoose.Promise = global.Promise;
- mongoose.connect('mongodb://127.0.0.1/miinstanciadb');
- app.use(cors());
+app.use(cors());
+mongoose.connect(
+	"mongodb+srv://toska:eliana22@cluster0.7mzia7h.mongodb.net/stockMe?retryWrites=true&w=majority",
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}
+);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+   console.log("Connected succesfuly");
+});
 
- app.use(bodyParser.urlencoded({
-    extended: true
- }));
- app.use(bodyParser.json());
- var routes = require('./api/routes/StockRoute');
+app.use(
+	bodyParser.urlencoded({
+		extended: false
+	})
+);
+app.use(bodyParser.json());
+var routes = require("./api/routes/StockRoute");
 routes(app);
 
 app.listen(port);
-console.log('server running on' + port);
+console.log("server running on" + port);
