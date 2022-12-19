@@ -7,7 +7,7 @@ var express = require("express"),
 
 app.use(cors());
 mongoose.connect(
-	"mongodb+srv://toska:eliana22@cluster0.7mzia7h.mongodb.net/stockMe?retryWrites=true&w=majority",
+	"mongodb+srv://toska:eliana2022@cluster0.7mzia7h.mongodb.net/stockMe?retryWrites=true&w=majority",
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true
@@ -21,7 +21,7 @@ db.once("open", function () {
 
 app.use(
 	bodyParser.urlencoded({
-		extended: false
+		extended: true
 	})
 );
 app.use(bodyParser.json());

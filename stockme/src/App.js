@@ -6,17 +6,17 @@ import React, { lazy, Suspense } from "react";
 import Login from "./Login";
 import AppHeader from "./components/appheader/Index";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useLogin } from "./components/common/hooks";
+import { Context, useLoading, useLogin } from "./components/common/hooks";
 import "react-toastify/dist/ReactToastify.css";
 import { Grid } from "@mui/material";
 import Menu from "./components/contentLayout/Menu";
+import Products from "./components/contentLayout/products/Products";
 
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: "#1836b2",
+			main: "#ffcb23",
 			light: "#68708e"
-			
 		},
 		secondary: {
 			main: "#7E7E7E",
@@ -27,17 +27,24 @@ const theme = createTheme({
 		// Name of the component
 		MuiTextField: {
 			styleOverrides: {
-				root: { color: "#1836b2" }
+				root: { color: "#ffcb23" }
+			}
+		},
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					color: "#7e7e7e"
+				}
 			}
 		},
 		MuiTab: {
 			styleOverrides: {
 				root: {
 					"&.Mui-selected": {
-						backgroundColor: "#1836b2",
+						backgroundColor: "#ffcb23",
 						color: "#fff",
 						fontWeight: "bold"
-					}	
+					}
 				}
 			}
 		},
@@ -52,10 +59,6 @@ const theme = createTheme({
 		}
 	}
 });
-
-const Products = lazy(() =>
-	import("./components/contentLayout/products/Index")
-);
 const Entradas = lazy(() =>
 	import("./components/contentLayout/products/Entradas")
 );
@@ -65,36 +68,39 @@ const Salidas = lazy(() =>
 
 function App() {
 	const { token, getToken } = useLogin();
-
+	const { loading, Loading, actions } = useLoading();
 	return (
 		<ThemeProvider theme={theme}>
 			<div className="App">
 				<ToastContainer />
+				{loading && <Loading />}
 				<AppHeader />
 				{token ? (
 					<BrowserRouter>
-						<Grid
-							container
-							justifyContent="space-between"
-							spacing={2}
-							className="page-content"
-							sx={{ height: "100vh" }}>
-							<Grid item container xs={2}>
-								<Menu />
+						<Context.Provider value={{loading, actions}}>
+							<Grid
+								container
+								justifyContent="space-between"
+								spacing={2}
+								className="page-content"
+								sx={{ height: "100vh", mt: 2 }}>
+								<Grid item container xs={2}>
+									<Menu />
+								</Grid>
+								<Grid item container xs={10} className="body-content">
+									<Suspense fallback={<div>Loading...</div>}>
+										<Routes>
+											<Route path="/" element={<Products />} />
+											<Route index element={<Products />} />
+											<Route path="/productos" element={<Products />} />
+											<Route path="/entradas" element={<Entradas />} />
+											<Route path="/salidas" element={<Salidas />} />
+											<Route path="*" element={<h1>notfound</h1>} />
+										</Routes>
+									</Suspense>
+								</Grid>
 							</Grid>
-							<Grid item container xs={10} className="body-content">
-								<Suspense fallback={<div>Loading...</div>}>
-									<Routes>
-										<Route path="/" element={<Products />} />
-										<Route index element={<Products />} />
-										<Route path="/productos" element={<Products />} />
-										<Route path="/entradas" element={<Entradas />} />
-										<Route path="/salidas" element={<Salidas />} />
-										<Route path="*" element={<h1>notfound</h1>} />
-									</Routes>
-								</Suspense>
-							</Grid>
-						</Grid>
+						</Context.Provider>
 					</BrowserRouter>
 				) : (
 					<Login getToken={getToken} />

@@ -35,7 +35,7 @@ const Login = ({getToken}) => {
             setState((ps) => ({ ...ps, [name]: value }))}
 	});
     const handleSubmit = async e => {
-        e.preventDefault();
+        e && e.preventDefault();
         await loginUser({
             username: state.user,
             password: state.password
@@ -61,6 +61,7 @@ const Login = ({getToken}) => {
 					<Grid item xs={6}>
 						<InputText
 							{...inputProps("password", "Password")}
+							{...{handleSubmit}}
                             showPassword={state?.showPassword}
 							handleClickShowPassword={handleClickShowPassword}
 						/>
@@ -82,6 +83,7 @@ const Login = ({getToken}) => {
 							size="small"
                             type="submit"
                             onClick={handleSubmit}
+							
                             sx={{ color: "#fff", fontWeight: "bold"}}
 							>
 							Save

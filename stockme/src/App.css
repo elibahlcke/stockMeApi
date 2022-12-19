@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    background-color: #5d5b5b;
     
 }
 .page-content {
@@ -14,10 +15,8 @@
   padding: 0.5rem;
   font-size: 0.613rem;
   font-weight: 100;
-  background-image: url('./assets/blob.svg'),
-    url('./assets/wave.svg');
-    background-position: top left,
-    bottom left;
+  background-image: url('./assets/wave.svg');
+    background-position: bottom;
     background-repeat: no-repeat;
     background-size: 100%;
   
@@ -53,7 +52,7 @@
     -webkit-text-size-adjust: 100%; /* 2 */
   }
   ::-webkit-scrollbar {
-    width: 20px;
+    width: 15px;
   }
   
   /* Track */
@@ -70,6 +69,7 @@
 
   .button-hover:hover {
     transform: scale(1.2);
+    color: #ffcb23;
     
   }
   /* Sections

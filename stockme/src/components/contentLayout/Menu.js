@@ -4,7 +4,7 @@ import { Link, matchPath, useLocation } from "react-router-dom";
 
 function useRouteMatch(patterns) {
 	const { pathname } = useLocation();
-
+	if(pathname === "/") return { pattern: { path: "/productos"}};
 	for (let i = 0; i < patterns.length; i += 1) {
 		const pattern = patterns[i];
 		const possibleMatch = matchPath(pattern, pathname);
@@ -20,7 +20,7 @@ function MyTabs() {
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
-		<Tabs value={currentTab} orientation="vertical" indicatorColor="secondary">
+		<Tabs value={currentTab} defaultValue="/productos" orientation="vertical" indicatorColor="secondary">
 			<Tab
 				label="Productos"
 				value="/productos"

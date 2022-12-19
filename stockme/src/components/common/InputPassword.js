@@ -38,6 +38,8 @@ const InputPasswordText = ({
 						
 					}}
 					{...other}
+					onKeyDown={(event) => {
+						if(event.code === "Enter") other?.handleSubmit();}}
 				/>
 			}
 		</FormControl>
