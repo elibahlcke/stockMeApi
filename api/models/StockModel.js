@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProductsSchema = new mongoose.Schema({
-    _id: { type: Number },
     code: { type: String},
     categoria: { type: String},
     descripcion: {type: String},
@@ -12,7 +11,8 @@ var ProductsSchema = new mongoose.Schema({
     genero: {type: String},
     fecha: {type: Date, default: Date.now},
     precio: { type: Number},
-    cantidad: { type: Number}
+    cantidad: { type: Number},
+    deletedOn: {type: Date}
 });
 
 const Products = mongoose.model("Products", ProductsSchema)

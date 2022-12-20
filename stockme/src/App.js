@@ -59,8 +59,8 @@ const theme = createTheme({
 		}
 	}
 });
-const Entradas = lazy(() =>
-	import("./components/contentLayout/products/Entradas")
+const EntradaMuchos = lazy(() =>
+	import("./components/contentLayout/products/EntradaMuchos")
 );
 const Salidas = lazy(() =>
 	import("./components/contentLayout/products/Salidas")
@@ -93,7 +93,7 @@ function App() {
 											<Route path="/" element={<Products />} />
 											<Route index element={<Products />} />
 											<Route path="/productos" element={<Products />} />
-											<Route path="/entradas" element={<Entradas />} />
+											<Route path="/entradas" element={<EntradaMuchos />} />
 											<Route path="/salidas" element={<Salidas />} />
 											<Route path="*" element={<h1>notfound</h1>} />
 										</Routes>

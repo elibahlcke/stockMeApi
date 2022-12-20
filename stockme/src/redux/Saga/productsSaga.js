@@ -76,8 +76,7 @@ export function* findProductSaga() {
 export function* postProductSaga() {
 	yield takeLatest("POST_PRODUCT", function* fetchPostProduct(action) {
 		try {
-			const product = yield call(postApi,action.product, `${apiUrl}/add`  );
-			yield put({type: "POST_PRODUCT_SUCCESS", products: product});
+			yield call(postApi,JSON.stringify(action.product), `${apiUrl}/add`  );
 			yield call(action.onSuccess);
 		} catch (e) {
 			yield call(toastError("Unable to add new product"));

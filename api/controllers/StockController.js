@@ -8,7 +8,6 @@ exports.loginUser = function (req, res) {
 			token: "fernandotieneunemail"
 		});
 	}
-	throw new Error("Wrong credentials");
 };
 exports.getAllStock = function (req, res) {
 	productModel.find({}, function (err, product) {
@@ -18,13 +17,21 @@ exports.getAllStock = function (req, res) {
 };
 
 exports.addProduct = function (req, res) {
-	var newProduct = new productModel(req.body);
-	newProduct.save(function (err, product) {
+	const product = productModel.create(req.body);
+	res.send(product);
+};
+exports.addManyProducts = function (req, res) {
+	for (const i in req.body.products) {
+		productModel.create(i);
+	}
+	res.send(true);
+};
+exports.findDeletedProducts = function (req, res) {
+	productModel.find({ deletedOn: { $ne: null } }, function (err, product) {
 		if (err) res.send(err);
 		res.json(product);
 	});
 };
-
 exports.findProduct = function (req, res) {
 	productModel.find(
 		{

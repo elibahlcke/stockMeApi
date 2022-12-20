@@ -7,5 +7,8 @@ module.exports = function (app) {
 		.put(product.updateProduct)
 		.delete(product.deleteProduct);
 	app.route("/productos/find").post(product.findProduct);
+	app.route("/productos/findDeleted").post(product.findDeletedProducts);
+	app.route("/productos/add").post(product.addProduct);
+	app.route("/productos/addMany").post(product.addManyProducts);
 	app.route("/login").post(product.loginUser);
 };

@@ -12,6 +12,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { DataGrid } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
+import Moment from 'moment';
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
@@ -47,11 +48,11 @@ const Products = () => {
 	const { openDialog, setOpenDialog, handleClose } = usePageDialog();
 
 	useLayoutEffect(() => {
-		if (state?.categoria === "" && search === "") {
+		if (state?.categoria === "" && search === "" && !openDialog) {
 			showLoading();
 			dispatch(getProducts(hideLoading, hideLoading));
 		}
-	}, [state?.categoria, search]);
+	}, [state?.categoria, search, openDialog]);
 
 	useEffect(() => {
 		hideLoading();
@@ -64,7 +65,7 @@ const Products = () => {
 	const columns = [
 		{ field: "id", headerName: "ID", width: 90 },
 		{
-			field: "description",
+			field: "descripcion",
 			headerName: "Description",
 			width: 150
 		},
@@ -87,6 +88,12 @@ const Products = () => {
 			field: "precio",
 			headerName: "precio",
 			width: 110
+		},
+		{
+			field: "fecha",
+			headerName: "Fecha",
+			width: 110,
+			valueGetter: (params) => Moment(params.row.fecha).format('DD-MM-YYYY'),
 		}
 	];
 	useEffect(() => {
@@ -184,7 +191,7 @@ const Products = () => {
 					<DataGrid
 						rows={rows}
 						columns={columns}
-						pageSize={5}
+						pageSize={6}
 						rowsPerPageOptions={[5]}
 						sx={{
 							maxHeight: "60%",

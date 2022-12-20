@@ -4,15 +4,20 @@ var express = require("express"),
 	port = process.env.PORT || 8000,
 	mongoose = require("mongoose"),
 	bodyParser = require("body-parser");
+var config = require("./config.js");
 
 app.use(cors());
-mongoose.connect(
-	"mongodb+srv://toska:eliana2022@cluster0.7mzia7h.mongodb.net/stockMe?retryWrites=true&w=majority",
+try {
+	mongoose.connect(
+	config.DBURL,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true
 	}
 );
+} catch (error) {
+	console.log(error)
+}
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
