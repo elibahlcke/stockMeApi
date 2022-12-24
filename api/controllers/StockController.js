@@ -1,6 +1,8 @@
 "use strict";
 var mongoose = require("mongoose");
+require("date-utils");
 const productModel = require("../models/StockModel");
+const salidasModel = require("../models/SalidasModel");
 
 exports.loginUser = function (req, res) {
 	if (req.body.username === "toska" && req.body.password === "eliana2022") {
@@ -10,10 +12,13 @@ exports.loginUser = function (req, res) {
 	}
 };
 exports.getAllStock = function (req, res) {
-	productModel.find({}, function (err, product) {
-		if (err) res.send(err);
-		res.json(product);
-	});
+	productModel.find(
+		{ deletedOn: { $eq: "1970-01-01T00:00:00.000+00:00" } },
+		function (err, product) {
+			if (err) res.send(err);
+			res.json(product);
+		}
+	);
 };
 
 exports.addProduct = function (req, res) {
@@ -27,11 +32,20 @@ exports.addManyProducts = function (req, res) {
 	res.send(true);
 };
 exports.findDeletedProducts = function (req, res) {
-	productModel.find({ deletedOn: { $ne: null } }, function (err, product) {
-		if (err) res.send(err);
-		res.json(product);
-	});
+	salidasModel.find(
+		{
+			$or: [
+				{ code: { $regex: new RegExp(req.body.value) } },
+				{ descripcion: { $regex: RegExp(`${req.body.value}`) } }
+			]
+		},
+		function (err, product) {
+			if (err) res.send(err);
+			res.json(product);
+		}
+	);
 };
+
 exports.findProduct = function (req, res) {
 	productModel.find(
 		{
@@ -48,16 +62,22 @@ exports.findProduct = function (req, res) {
 };
 
 exports.getFilterStock = function (req, res) {
-	productModel.find({ categoria: req.body.value }, function (err, product) {
-		if (err) res.send(err);
-		res.json(product);
-	});
+	productModel.find(
+		{
+			categoria: req.body.value,
+			deletedOn: { $eq: "1970-01-01T00:00:00.000+00:00" }
+		},
+		function (err, product) {
+			if (err) res.send(err);
+			res.json(product);
+		}
+	);
 };
 
 exports.updateProduct = function (req, res) {
 	productModel.findOneAndUpdate(
-		{ _id: req.params.productId },
-		req.body,
+		{ _id: req.body.id },
+		req.body.filter,
 		{ new: true },
 		function (err, product) {
 			if (err) res.send(err);
@@ -67,8 +87,42 @@ exports.updateProduct = function (req, res) {
 };
 
 exports.deleteProduct = function (req, res) {
-	productModel.remove({ _id: req.params.productId }, function (err, product) {
-		if (err) res.send(err);
-		res.json({ message: "Borrado Exitosamente!" });
+	let array = [];
+	req.body.products.forEach((item) => {
+		console.log(item, Date.today());
+		productModel.findByIdAndUpdate(
+			item,
+			{ deletedOn: Date.today() },
+			function (err, products) {
+				if (err) {
+					console.log(err);
+				} else {
+					array = [...array, products];
+				}
+			}
+		);
 	});
+	res.json(array);
+};
+
+exports.removeStock = function (req, res) {
+	let difference = req.body.prevValue - req.body.filter.cantidad;
+	if (difference >= 0) {
+		productModel.findOneAndUpdate(
+			{ _id: req.body.id },
+			req.body.filter,
+			{ new: true },
+			function (err, product) {
+				if (err) res.send(err);
+				salidasModel.create({
+					fecha: Date.now(),
+					cantidad: difference,
+					producto: req.body.id,
+					codigo: req.body.code,
+					descripcion: req.body.descripcion
+				});
+				res.json(product);
+			}
+		);
+	} else throw new Error("No hay mas cantidad para descontar");
 };

@@ -21,7 +21,8 @@ const initialState = {
     genero: "",
     fecha: new Date(),
     precio: undefined,
-    cantidad: undefined
+    cantidad: undefined,
+	deletedOn: new Date("1970-01-01T00:00:00.000+00:00")
 };
 export default function Entradas({ openDialog, handleClose }) {
 	const [state, setState] = useState(initialState);

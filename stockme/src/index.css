@@ -65,3 +65,9 @@ code {
 .inputs {
   font-size: 12px !important;
 }
+
+.cell-style {
+  background-color: rgb(208, 130, 130) ;
+  color: #fff;
+  font-weight: bold;
+}
