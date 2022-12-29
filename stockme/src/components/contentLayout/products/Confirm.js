@@ -42,7 +42,7 @@ Confirm.propTypes = {
   handleConfirm: PropTypes.func,
   title: PropTypes.string,
   message: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   confirmText: PropTypes.string
 };
 Confirm.defaultProps = {
@@ -51,5 +51,6 @@ Confirm.defaultProps = {
   handleConfirm: () => {},
   title: "",
   message: "",
-  confirmText: "Guardar"
+  confirmText: "Guardar",
+  children: null
 }

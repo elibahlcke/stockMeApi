@@ -14,6 +14,7 @@ const InputPasswordText = ({
 	value,
 	showPassword,
 	handleClickShowPassword,
+	handleSubmit,
 	...other
 
 }) => {
@@ -39,7 +40,7 @@ const InputPasswordText = ({
 					}}
 					{...other}
 					onKeyDown={(event) => {
-						if(event.code === "Enter") other?.handleSubmit();}}
+						if(event.code === "Enter") handleSubmit();}}
 				/>
 			}
 		</FormControl>
@@ -50,14 +51,18 @@ InputPasswordText.propTypes = {
 	label: PropTypes.string,
 	value: PropTypes.string,
 	showPassword: PropTypes.bool,
-	handleClickShowPassword: PropTypes.func
+	handleClickShowPassword: PropTypes.func,
+	handleSubmit: PropTypes.func
+
 };
 
 InputPasswordText.defaultProps = {
 	label: "",
 	value: "",
 	showPassword: false,
-	handleClickShowPassword: () => {}
+	handleClickShowPassword: () => {},
+	handleSubmit: () => {}
+
 };
 
 export default InputPasswordText;

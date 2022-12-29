@@ -7,9 +7,18 @@ module.exports = function (app) {
 	app.route("/productos/delete").post(product.deleteProduct);
 	app.route("/productos/find").post(product.findProduct);
 	app.route("/productos/findDeleted").post(product.findDeletedProducts);
+	app.route("/productos/entryDates").post(product.findEntryDates);
 	app.route("/productos/add").post(product.addProduct);
 	app.route("/productos/remove").post(product.removeStock);
 	app.route("/productos/addMany").post(product.addManyProducts);
-	app.route("/productos/historial").get(product.findDeletedProducts);
+	app
+		.route("/productos/historial")
+		.get(product.getHistory)
+		.post(product.findDates);
+	app
+		.route("/productos/entradas")
+		.get(product.getEntradasHistory)
+		.post(product.findEntryProducts);
+	app.route("/productos/entrada").post(product.addStock);
 	app.route("/login").post(product.loginUser);
 };

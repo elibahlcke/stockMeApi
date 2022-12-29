@@ -170,7 +170,6 @@ const Products = () => {
 								onChange={({ target: { value } }) =>
 									setSearch(value ? value : "")
 								}
-								isClearable
 								value={search}
 								fullWidth
 								InputProps={{
@@ -184,7 +183,7 @@ const Products = () => {
 												mb: 3,
 												mr: 2
 											}}>
-											<SvgIcon fontSize="small" sx={{ mb: 3 }}>
+											<SvgIcon fontSize="medium" sx={{ mb: 3 }}>
 												<ClearIcon
 													onClick={() => setSearch("")}
 													className="button-hover"

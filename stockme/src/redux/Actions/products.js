@@ -58,32 +58,8 @@ export const deleteProducts = (products, onSuccess, onError) => ({
 	products,
 	onSuccess,
 	onError
-})
+});
 export const deleteProductsSuccess = (products) => ({
 	type: type.DELETE_PRODUCT_SUCCESS,
 	products
-})
-export const removeStock = (data, onSuccess, onError) => ({
-	type: type.REMOVE_STOCK,
-	data,
-	onSuccess,
-	onError
-})
-export const removeStockSuccess = (products) => ({
-	type: type.REMOVE_STOCK_SUCCESS,
-	products
-})
-
-export const getHistorial = (onSuccess, onError) => ({ 
-	type: type.GET_HISTORIAL,
-	onSuccess,
-	onError	
-})
-export const getHistorialSuccess = (products, onSuccess, onError) => ({ 
-	type: type.GET_HISTORIAL_SUCCESS,
-	products,
-	onSuccess,
-	onError	
-})
-
-export const findHistory = () => ({})
+});

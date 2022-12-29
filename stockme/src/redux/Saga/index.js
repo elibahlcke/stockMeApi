@@ -4,10 +4,20 @@ import productsSaga, {
 	findProductSaga,
 	postProductSaga,
 	updateProductSaga,
-	deleteProductSaga,
-	removeStockSaga,
-	getHistorialSaga
+	deleteProductSaga
 } from "./productsSaga";
+import {
+	removeStockSaga,
+	getHistorialSaga,
+	findDeletedSaga,
+	findDeletedByDateSaga
+} from "./salidasSaga";
+import {
+	addStockSaga,
+	findEntradasByDateSaga,
+	findEntradasSaga,
+	getHistorialEntradasSaga
+} from "./entradasSaga";
 
 export default function* rootSaga() {
 	yield all([
@@ -18,6 +28,12 @@ export default function* rootSaga() {
 		updateProductSaga(),
 		deleteProductSaga(),
 		removeStockSaga(),
-		getHistorialSaga()
+		getHistorialSaga(),
+		findDeletedSaga(),
+		findDeletedByDateSaga(),
+		addStockSaga(),
+		getHistorialEntradasSaga(),
+		findEntradasSaga(),
+		findEntradasByDateSaga()
 	]);
 }

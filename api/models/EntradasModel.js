@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var SalidasSchema = new mongoose.Schema({
+var EntradasSchema = new mongoose.Schema({
     cantidad: {type: Number},
     fecha: {type: Date, default: Date.now},
     producto: { type: String},
@@ -13,5 +13,5 @@ var SalidasSchema = new mongoose.Schema({
 
 });
 
-const Salidas = mongoose.model("Salidas", SalidasSchema)
-module.exports = Salidas;
+const Entradas = mongoose.model("Entradas", EntradasSchema)
+module.exports = Entradas;

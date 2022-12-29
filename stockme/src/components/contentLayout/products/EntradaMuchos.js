@@ -1,15 +1,27 @@
-import { Paper, Typography } from "@mui/material";
+
 import React from "react";
 
-const EntradaMuchos = () => {
+import {
+	getHistorialEntradas,
+	addStock,
+	findEntradas,
+	findEntradasByDate
+} from "../../../redux/Actions/entradas";
+import HistorialComp from "../../common/HistorialComp";
 
+const Entradas = () => {
+	const historialProps = {
+		getHistorial: getHistorialEntradas,
+		findHistoryItem: findEntradas,
+		findByDate:findEntradasByDate,
+		handleStock: addStock,
+		origin:"entradas"
+	};
 	return (
 		<>
-			<Paper elevation={0} className="sm-paper">
-				<Typography variant="h5"> Ingreso de productos </Typography>
-			</Paper>
+			<HistorialComp {...historialProps} />
 		</>
 	);
 };
 
-export default EntradaMuchos;
+export default Entradas;

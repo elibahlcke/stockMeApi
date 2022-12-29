@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-const apiUrl = `http://localhost:8000/productos`;
+export const apiUrl = `http://localhost:8000/productos`;
 
-function getApi(url = apiUrl) {
+export function getApi(url = apiUrl) {
 	return fetch(url, {
 		method: "GET",
 		headers: {
@@ -16,7 +16,7 @@ function getApi(url = apiUrl) {
 		});
 }
 
-function postApi(data, method, url) {
+export function postApi(data, method, url) {
 	return fetch(url, {
 		method: method,
 		headers: {
@@ -29,7 +29,7 @@ function postApi(data, method, url) {
 			throw error;
 		});
 }
-const toastMessage = (type, message) => {
+export const toastMessage = (type, message) => {
 	if (type === "error") return toast.error(message || "Unable to get products");
 	return toast.success(message || "Info actualizada con exito");
 };
@@ -118,7 +118,6 @@ export function* updateProductSaga() {
 			yield call(toastMessage, "success", "Producto actualizado correctamente");
 			yield call(action.onSuccess);
 		} catch (e) {
-			console.log(e);
 			yield call(toastMessage, "error", "Unable to update product");
 			yield call(action.onError);
 		}
@@ -144,37 +143,7 @@ export function* deleteProductSaga() {
 	});
 }
 
-export function* removeStockSaga() {
-	yield takeLatest("REMOVE_STOCK", function* fetchRemoveStock(action) {
-		try {
-			const product = yield call(
-				postApi,
-				JSON.stringify(action.data),
-				"POST",
-				`${apiUrl}/remove`
-			);
-			yield put({ type: "REMOVE_STOCK_SUCCESS", products: product });
-			yield call(toastMessage, "success", "Stock descontado exitosamente");
-			yield call(action.onSuccess);
-		} catch (e) {
-			yield call(toastMessage, "error", "Unable to remove product");
-			yield call(action.onError);
-		}
-	});
-}
-export function* getHistorialSaga() {
-	yield takeLatest("GET_HISTORIAL", function* fetchGetHistorial(action) {
-		try {
-			const product = yield call(
-				getApi,
-				`${apiUrl}/historial`
-			);
-			yield put({ type: "GET_HISTORIAL_SUCCESS", products: product });
-			yield call(action.onSuccess);
-		} catch (e) {
-			yield call(toastMessage, "error", "Unable to get historial");
-			yield call(action.onError);
-		}
-	});
-}
+
+
+
 export default productsSaga;

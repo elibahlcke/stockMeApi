@@ -1,6 +1,8 @@
 import "./App.css";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { ToastContainer } from "react-toastify";
 import React, { lazy, Suspense } from "react";
 import Login from "./Login";
@@ -71,41 +73,43 @@ function App() {
 	const { loading, Loading, actions } = useLoading();
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="App">
-				<ToastContainer />
-				{loading && <Loading />}
-				<AppHeader />
-				{token ? (
-					<BrowserRouter>
-						<Context.Provider value={{loading, actions}}>
-							<Grid
-								container
-								justifyContent="space-between"
-								spacing={2}
-								className="page-content"
-								sx={{ height: "100vh", mt: 2 }}>
-								<Grid item container xs={2}>
-									<Menu />
+			<LocalizationProvider dateAdapter={AdapterMoment}>
+				<div className="App">
+					<ToastContainer />
+					{loading && <Loading />}
+					<AppHeader />
+					{token ? (
+						<BrowserRouter>
+							<Context.Provider value={{ loading, actions }}>
+								<Grid
+									container
+									justifyContent="space-between"
+									spacing={2}
+									className="page-content"
+									sx={{ height: "100vh", mt: 2 }}>
+									<Grid item container xs={2}>
+										<Menu />
+									</Grid>
+									<Grid item container xs={10} className="body-content">
+										<Suspense fallback={<div>Loading...</div>}>
+											<Routes>
+												<Route path="/" element={<Products />} />
+												<Route index element={<Products />} />
+												<Route path="/productos" element={<Products />} />
+												<Route path="/entradas" element={<EntradaMuchos />} />
+												<Route path="/salidas" element={<Salidas />} />
+												<Route path="*" element={<h1>notfound</h1>} />
+											</Routes>
+										</Suspense>
+									</Grid>
 								</Grid>
-								<Grid item container xs={10} className="body-content">
-									<Suspense fallback={<div>Loading...</div>}>
-										<Routes>
-											<Route path="/" element={<Products />} />
-											<Route index element={<Products />} />
-											<Route path="/productos" element={<Products />} />
-											<Route path="/entradas" element={<EntradaMuchos />} />
-											<Route path="/salidas" element={<Salidas />} />
-											<Route path="*" element={<h1>notfound</h1>} />
-										</Routes>
-									</Suspense>
-								</Grid>
-							</Grid>
-						</Context.Provider>
-					</BrowserRouter>
-				) : (
-					<Login getToken={getToken} />
-				)}
-			</div>
+							</Context.Provider>
+						</BrowserRouter>
+					) : (
+						<Login getToken={getToken} />
+					)}
+				</div>
+			</LocalizationProvider>
 		</ThemeProvider>
 	);
 }
