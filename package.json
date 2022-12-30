@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "build": "nodemon --watch src/ --exec babel ./src --out-dir ./dist --source-maps --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eli Bahlcke",
@@ -13,6 +14,7 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "@babel/node": "^7.20.7",
     "cors": "^2.8.5",
     "date-utils": "^1.2.21",
     "dotenv": "^16.0.3",
