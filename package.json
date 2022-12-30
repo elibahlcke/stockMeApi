@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npm run build && node dist/index.js",
+    "build": "babel index.js -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eli Bahlcke",
@@ -13,10 +13,11 @@
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.7",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "@babel/node": "^7.20.7",
     "cors": "^2.8.5",
     "date-utils": "^1.2.21",
     "dotenv": "^16.0.3",
