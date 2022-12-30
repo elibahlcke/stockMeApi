@@ -30,7 +30,7 @@ app.use(
 	})
 );
 app.use(bodyParser.json());
-var routes = require("./api/routes/StockRoute");
+var routes = require("./routes/StockRoute.js");
 routes(app);
 
 app.listen(port);
