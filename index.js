@@ -9,7 +9,7 @@ var config = require("./config.js");
 app.use(cors());
 try {
 	mongoose.connect(
-	config.DBURL,
+	process.env.DB_URI,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true
