@@ -11,6 +11,8 @@
   "author": "Eli Bahlcke",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.7",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
