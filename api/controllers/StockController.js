@@ -57,8 +57,8 @@ exports.findDeletedProducts = function (req, res) {
 	salidasModel.find(
 		{
 			$or: [
-				{ code: { $regex: new RegExp(req.body.value) } },
-				{ descripcion: { $regex: RegExp(`${req.body.value}`) } }
+				{ code: { $regex: new RegExp(req.body.value), $options: 'i' } },
+				{ descripcion: { $regex: RegExp(`${req.body.value}`), $options: 'i' } }
 			]
 		},
 		function (err, product) {
@@ -73,8 +73,8 @@ exports.findEntryProducts = function (req, res) {
 	entradasModel.find(
 		{
 			$or: [
-				{ code: { $regex: new RegExp(req.body.value) } },
-				{ descripcion: { $regex: RegExp(`${req.body.value}`) } }
+				{ code: { $regex: new RegExp(req.body.value), $options: 'i' } },
+				{ descripcion: { $regex: RegExp(`${req.body.value}`), $options: 'i' } }
 			]
 		},
 		function (err, product) {
@@ -88,8 +88,8 @@ exports.findProduct = function (req, res) {
 	productModel.find(
 		{
 			$or: [
-				{ code: { $regex: new RegExp(req.body.value) } },
-				{ descripcion: { $regex: RegExp(`${req.body.value}`) } }
+				{ code: { $regex: new RegExp(req.body.value), $options: 'i' } },
+				{ descripcion: { $regex: RegExp(`${req.body.value}`), $options: 'i' } }
 			]
 		},
 		function (err, product) {
