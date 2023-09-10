@@ -88,8 +88,8 @@ exports.findProduct = function (req, res) {
 	productModel.find(
 		{
 			$or: [
-				{ code: { $regex: new RegExp(req.body.value), $options: 'i' } },
-				{ descripcion: { $regex: RegExp(`${req.body.value}`), $options: 'i' } }
+				{ code: { $regex: new RegExp(req.body.value), $options: 'i' }, deletedOn: { $eq: "1970-01-01T00:00:00.000+00:00" }  },
+				{ descripcion: { $regex: RegExp(`${req.body.value}`), $options: 'i' }, deletedOn: { $eq: "1970-01-01T00:00:00.000+00:00" } }
 			]
 		},
 		function (err, product) {
